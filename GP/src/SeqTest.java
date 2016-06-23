@@ -45,6 +45,8 @@ public class SeqTest extends GPProblem {
         INPUTS = data.getInputs();
         OUTPUT = data.getOutputs();
         
+        data = null;
+        
         for(int i = 0; i < SEQS.length - 1; i++){
         	Variable newVariable = Variable.create(config, SEQS[i], CommandGene.DoubleClass);
         	variables.add(newVariable);
