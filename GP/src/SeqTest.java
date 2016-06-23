@@ -52,7 +52,7 @@ public class SeqTest extends GPProblem {
         
         config.setGPFitnessEvaluator(new DeltaGPFitnessEvaluator());
         config.setMaxInitDepth(4);
-        config.setPopulationSize(10000);
+        config.setPopulationSize(1000);
         config.setMaxCrossoverDepth(1000);
         config.setFitnessFunction(new SeqFitnessFunction(INPUTS, OUTPUT, variables));
         config.setStrictProgramCreation(true);
@@ -73,20 +73,22 @@ public class SeqTest extends GPProblem {
         // use.
         int size = variables.size();
         
-        CommandGene[] cgs = new CommandGene[size + 5];
+        CommandGene[] cgs = new CommandGene[size + 4];
         
         int i = 0;
         for(Variable v: variables){
         	cgs[i] = v;
         	i++;
         }
+
+        variables = null;
         
-//        Log log = new Log(config, CommandGene.DoubleClass);
-        Subtract sub = new Subtract(config, CommandGene.DoubleClass);
-        Divide div = new Divide(config, CommandGene.DoubleClass);
         Add add = new Add(config, CommandGene.DoubleClass);
         Multiply m = new Multiply(config, CommandGene.DoubleClass);
         Terminal t = new Terminal(config, CommandGene.DoubleClass, 0.0, 10.0, true);
+        Subtract sub = new Subtract(config, CommandGene.DoubleClass);
+//        Log log = new Log(config, CommandGene.DoubleClass);
+//        Divide div = new Divide(config, CommandGene.DoubleClass);
 //        Sine s = new Sine(config, CommandGene.DoubleClass);
 //        Exp exp= new Exp(config, CommandGene.DoubleClass);
 //        Pow p = new Pow(config, CommandGene.DoubleClass);
@@ -95,13 +97,13 @@ public class SeqTest extends GPProblem {
         cgs[size] = add; 
         cgs[size + 1] = m;
         cgs[size + 2] = t;
-//        cgs[size + 3] = log;
         cgs[size + 3] = sub;
-        cgs[size + 4] = div;
+//        cgs[size + 4] = div;
+//        cgs[size + 5] = log;
 //        cgs[size + 6] = s;
-//        cgs[size + 6] = exp;
 //        cgs[size + 7] = p;
 //        cgs[size + 9] = adf;
+//        cgs[size + 10] = exp;
         
         CommandGene[][] nodeSets = {
             cgs
@@ -126,7 +128,7 @@ public class SeqTest extends GPProblem {
 
         GPGenotype gp = problem.create();
         gp.setVerboseOutput(true);
-        gp.evolve(100);
+        gp.evolve(30);
 
         System.out.println("Formulaiscover:");
         gp.outputSolution(gp.getAllTimeBest());
