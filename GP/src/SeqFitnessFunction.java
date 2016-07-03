@@ -5,6 +5,10 @@ import org.jgap.gp.GPFitnessFunction;
 import org.jgap.gp.IGPProgram;
 import org.jgap.gp.terminal.Variable;
 
+/**
+ * @author barbara.lopes
+ *
+ */
 public class SeqFitnessFunction extends GPFitnessFunction {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +30,6 @@ public class SeqFitnessFunction extends GPFitnessFunction {
     @Override
     protected double evaluate(final IGPProgram program) {
         double result = 0.0f;
-        long longResult = 0;
 
         int size = _inputs.get(0).length;
         
@@ -34,14 +37,10 @@ public class SeqFitnessFunction extends GPFitnessFunction {
         	for(int b = 0; b < _inputs.size(); b++){
         		_variables.get(b).set(_inputs.get(b)[i]);
         	}
-        	
         	double value = program.execute_double(0, NO_ARGS);
-        	longResult += Math.abs(value - _output[i]);
+        	result += Math.abs(value - _output[i]);
         }
-        
-        result = longResult;
-
+             
         return result;
     }
-
 }
